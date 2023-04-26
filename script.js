@@ -13,11 +13,11 @@ compteur.textContent = count;
 //   <!-- Boutton principal avec les contrôles de décrémentation -->
 let btnMoins = document.getElementById("bouton-moins");
 let inputBtnMoins = document.getElementById("valeur-dec");
-
+console.log(inputBtnMoins.value);
 //   <!-- Boutton principal avec les contrôles d'incrémentation  -->
 let btnPlus = document.getElementById("bouton-plus");
 let inputBtnPlus = document.getElementById("valeur-inc");
-
+console.log(inputBtnPlus.value);
 //  <!-- Contrôle de la limite haute du compteur -->
 let controleLimiteHaute = document.getElementById("limite-haute");
 //  <!-- Contrôle de la limite basse du compteur -->
@@ -31,21 +31,23 @@ let zoneClic = document.getElementById("zone-de-clic");
 
 // les ecouteurs d'événements
 const btnMoinsOnClick = () => {
-  count--;
+  count-= parseInt(inputBtnMoins.value);
   compteur.textContent = count;
-  console.log("1- count --", count);
+
 };
 btnMoins.addEventListener("click", btnMoinsOnClick);
 
 const btnPlusOnClick = () => {
-  count++;
+count+= parseInt(inputBtnPlus.value);
   compteur.textContent = count;
-  console.log("2- count ++", count);
+
 };
 btnPlus.addEventListener("click", btnPlusOnClick);
 
 const btnResetOnClick = () => {
-  compteur.textContent = 0;
+  count = 0;
+  compteur.textContent = count;
+  console.log("count reset", count)
 };
 btnRemiseZero.addEventListener("click", btnResetOnClick);
 
@@ -65,6 +67,12 @@ const controleLimiteBasseOnClick = () => {
   }
 };
 controleLimiteBasse.addEventListener("click", controleLimiteBasseOnClick);
+
+
+
+
+
+
 
 // Annulé effet contexte menu pour gerer le clic droit de la souris
 const zoneClicContextmenu = (e) => {
@@ -89,3 +97,15 @@ const zoneClicOnClick = (e) => {
       }
   };
   zoneClic.addEventListener("mousedown", zoneClicOnClick);
+
+
+
+
+
+  inputBtnPlus.addEventListener('click',function () {
+    console.log(inputBtnPlus.value)
+    })
+
+    inputBtnMoins.addEventListener('click',function () {
+        console.log(inputBtnMoins.value)
+        })
