@@ -29,30 +29,32 @@ let btnRemiseZero = document.getElementById("bouton-reset");
 //   <!-- Zone de clic pour raccourcis via la souris -->
 let zoneClic = document.getElementById("zone-de-clic");
 
+let notification = document.getElementById("notification");
+let notificationTexte = document.getElementById("notification-texte");
+
 // les ecouteurs d'événements
 const btnMoinsOnClick = () => {
   count-= parseInt(inputBtnMoins.value);
   compteur.textContent = count;
-
+  gestionLimite();
 };
 btnMoins.addEventListener("click", btnMoinsOnClick);
 
 const btnPlusOnClick = () => {
 count+= parseInt(inputBtnPlus.value);
   compteur.textContent = count;
-
+  gestionLimite();;
 };
 btnPlus.addEventListener("click", btnPlusOnClick);
 
 const btnResetOnClick = () => {
   count = 0;
   compteur.textContent = count;
-  console.log("count reset", count)
+  compteur.classList.remove("limite-atteinte");
 };
 btnRemiseZero.addEventListener("click", btnResetOnClick);
 
 const controleLimiteHauteOnClick = () => {
-  console.log("controleLimiteHaute", controleLimiteHaute.value);
   if (count >= controleLimiteHaute.value) {
     console.log("valeur la plus haute atteinte");
   }
@@ -61,16 +63,12 @@ const controleLimiteHauteOnClick = () => {
 controleLimiteHaute.addEventListener("click", controleLimiteHauteOnClick);
 
 const controleLimiteBasseOnClick = () => {
-  console.log("controleLimiteBasse", controleLimiteBasse.value);
+
   if (count <= controleLimiteBasse.value) {
     console.log("valeur la plus basse atteinte");
   }
 };
 controleLimiteBasse.addEventListener("click", controleLimiteBasseOnClick);
-
-
-
-
 
 
 
@@ -100,12 +98,30 @@ const zoneClicOnClick = (e) => {
 
 
 
+// Gestion des limites .limite-atteinte
+const gestionLimite=()=>{
 
+    if(count >= parseInt(controleLimiteHaute.value)){
+        notification.classList.add("afficher");
+        compteur.classList.add("limite-atteinte");
+        notificationTexte.textContent= "Limite haute 3 atteinte !"
+        setTimeout(()=>{
+            notification.classList.remove("afficher");
 
-  inputBtnPlus.addEventListener('click',function () {
-    console.log(inputBtnPlus.value)
-    })
+        },2000)
+       
+    }else if(count <= parseInt(controleLimiteBasse.value)){
+     
+        notification.classList.add("afficher");
+        compteur.classList.add("limite-atteinte");
+        notificationTexte.textContent= "Limite basse -3 atteinte !";
+        setTimeout(()=>{
+            notification.classList.remove("afficher");
 
-    inputBtnMoins.addEventListener('click',function () {
-        console.log(inputBtnMoins.value)
-        })
+        },2000)
+ 
+        console.log("notificationTexte",notificationTexte);
+    }else{
+        compteur.classList.remove("limite-atteinte");
+    }
+}
